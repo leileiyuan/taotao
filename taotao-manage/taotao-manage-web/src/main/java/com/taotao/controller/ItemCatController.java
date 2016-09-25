@@ -23,10 +23,12 @@ public class ItemCatController {
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<List<ItemCat>> queryItemCatListByParentId(
-			@RequestParam(value = "id", defaultValue = "0") long id) {
+			@RequestParam(value = "id", defaultValue = "0") long parentId) {
 		List<ItemCat> list;
 		try {
-			list = this.itemCatService.queryItemCatListByParentId(id);
+			ItemCat record = new ItemCat();
+			record.setParentId(parentId);
+			list = itemCatService.queryListByWhere(record);
 			if (list == null) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 			}
