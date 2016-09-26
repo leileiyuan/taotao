@@ -30,4 +30,4 @@ Fastdfs 分布式文件系统（图片服务器）</br>
 13、使用hudson来管理项目开发过程中的持续集成。</br>
 
 拓扑结构：</br>
-<img width="500" height="633" src="http://www.itheima.com/uploads/2015/10/17531445938099.jpg">
+<img src="http://www.itheima.com/uploads/2015/10/17531445938099.jpg">
