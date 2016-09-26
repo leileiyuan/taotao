@@ -31,5 +31,4 @@ Fastdfs 分布式文件系统（图片服务器）</br>
 
 
 拓扑结构：
-![image](https://github.com/leileiyuan/taotao/blob/master/%E6%8B%93%E6%89%91%E7%BB%93%E6%9E%84.jpg)
 ![image](https://github.com/leileiyuan/taotao/blob/master/拓扑结构.jpg)
