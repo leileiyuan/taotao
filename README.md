@@ -28,3 +28,8 @@ Fastdfs 分布式文件系统（图片服务器）</br>
 11、整个项目采用最流行的Maven来管理项目，达到项目的标准化，易于项目的构建。</br>
 12、使用git-github来管理项目的代码和文档。</br>
 13、使用hudson来管理项目开发过程中的持续集成。</br>
+
+
+拓扑结构：
+![image](https://github.com/leileiyuan/taotao/blob/master/%E6%8B%93%E6%89%91%E7%BB%93%E6%9E%84.jpg)
+![image](https://github.com/leileiyuan/taotao/blob/master/拓扑结构.jpg)
