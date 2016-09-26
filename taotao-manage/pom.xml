@@ -46,7 +46,7 @@
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<configuration>
-					<port>8889</port>
+					<port>8866</port>
 					<path>/</path>
 				</configuration>
 			</plugin>
