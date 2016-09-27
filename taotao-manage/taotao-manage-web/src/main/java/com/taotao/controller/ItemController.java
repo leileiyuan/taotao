@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.taotao.pojo.Item;
-import com.taotao.pojo.ItemDesc;
-import com.taotao.service.ItemDescService;
 import com.taotao.service.ItemService;
 
 @Controller
