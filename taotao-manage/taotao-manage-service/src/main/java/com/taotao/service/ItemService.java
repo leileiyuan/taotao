@@ -46,4 +46,16 @@ public class ItemService extends BaseService<Item> {
 		PageInfo<Item> info = new PageInfo<>(list);
 		return new EasyUIResult(info.getTotal(), info.getList());
 	}
+
+	public boolean updateItem(Item item, String desc) {
+		item.setStatus(null); // 强制设置 status为null,不更新该字段
+		int count1 = super.updateSelective(item);
+
+		ItemDesc itemDesc = new ItemDesc();
+		itemDesc.setItemId(item.getId());
+		itemDesc.setItemDesc(desc);
+		int count2 = itemDescService.updateSelective(itemDesc);
+
+		return (count1 == 1) && (count2 == 1);
+	}
 }
