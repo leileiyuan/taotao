@@ -56,7 +56,7 @@ public class ItemService extends BaseService<Item> {
 		return new EasyUIResult(info.getTotal(), info.getList());
 	}
 
-	public boolean updateItem(Item item, String desc) {
+	public boolean updateItem(Item item, String desc, String itemParams) {
 		item.setStatus(null); // 强制设置 status为null,不更新该字段
 		int count1 = super.updateSelective(item);
 
@@ -65,6 +65,8 @@ public class ItemService extends BaseService<Item> {
 		itemDesc.setItemDesc(desc);
 		int count2 = itemDescService.updateSelective(itemDesc);
 
-		return (count1 == 1) && (count2 == 1);
+		int count3 = this.itemParamItemService.updateItemParamItem(item.getId(), itemParams);
+
+		return (count1 == 1) && (count2 == 1) && (count3 == 1);
 	}
 }

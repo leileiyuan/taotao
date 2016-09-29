@@ -26,6 +26,7 @@ public class ItemController {
 
 	/**
 	 * 新增商品，新增商品信息，商品描述，商品规格参数
+	 * 
 	 * @param item
 	 * @param desc
 	 * @param itemParams
@@ -39,7 +40,7 @@ public class ItemController {
 				// 参数有误 400
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 			}
-			boolean bool = this.itemService.saveItem(item, desc,itemParams);
+			boolean bool = this.itemService.saveItem(item, desc, itemParams);
 			if (!bool) {
 				logger.info("新增商品失败,item = {}", item);
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -72,14 +73,14 @@ public class ItemController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Void> updateItem(Item item, @RequestParam("desc") String desc) {
+	public ResponseEntity<Void> updateItem(Item item, @RequestParam("desc") String desc, String itemParams) {
 		try {
-			logger.info("修改商品，item = {}, desc = {}", item, desc);
+			logger.info("修改商品，item = {}, desc = {}, itemParams = {}", item, desc, itemParams);
 			if (StringUtils.isEmpty(item.getTitle()) || StringUtils.length(item.getTitle()) > 100) {
 				// 参数有误 400
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 			}
-			boolean bool = this.itemService.updateItem(item, desc);
+			boolean bool = this.itemService.updateItem(item, desc, itemParams);
 			if (!bool) {
 				logger.info("修改商品失败,item = {}", item);
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
