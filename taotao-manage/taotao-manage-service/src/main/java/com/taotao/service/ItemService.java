@@ -12,6 +12,7 @@ import com.taotao.common.EasyUIResult;
 import com.taotao.dao.ItemMapper;
 import com.taotao.pojo.Item;
 import com.taotao.pojo.ItemDesc;
+import com.taotao.pojo.ItemParamItem;
 
 @Service
 public class ItemService extends BaseService<Item> {
@@ -22,7 +23,10 @@ public class ItemService extends BaseService<Item> {
 	@Autowired
 	private ItemDescService itemDescService;
 
-	public boolean saveItem(Item item, String desc) {
+	@Autowired
+	private ItemParamItemService itemParamItemService;
+
+	public boolean saveItem(Item item, String desc, String itemParams) {
 		// 初始值
 		item.setStatus(1);
 		item.setId(null); // 出于安全考虑，强制设置id为null，通过数据库自增得到
@@ -34,7 +38,12 @@ public class ItemService extends BaseService<Item> {
 		itemDesc.setItemDesc(desc);
 		int count2 = this.itemDescService.save(itemDesc);
 
-		return (count1 == 1) && (count2 == 1);
+		ItemParamItem record = new ItemParamItem();
+		record.setItemId(item.getId());
+		record.setParamData(itemParams);
+		int count3 = this.itemParamItemService.save(record);
+
+		return (count1 == 1) && (count2 == 1) && (count3 == 1);
 	}
 
 	public EasyUIResult queryItemList(int page, int rows) {

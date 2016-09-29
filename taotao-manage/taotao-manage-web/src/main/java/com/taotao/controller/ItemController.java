@@ -24,15 +24,22 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 
+	/**
+	 * 新增商品，新增商品信息，商品描述，商品规格参数
+	 * @param item
+	 * @param desc
+	 * @param itemParams
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> saveItem(Item item, @RequestParam("desc") String desc) {
+	public ResponseEntity<Void> saveItem(Item item, @RequestParam("desc") String desc, String itemParams) {
 		try {
-			logger.info("新增商品，item = {}, desc = {}", item, desc);
+			logger.info("新增商品，item = {}, desc = {}, itemParams = {}", item, desc, itemParams);
 			if (StringUtils.isEmpty(item.getTitle())) {
 				// 参数有误 400
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 			}
-			boolean bool = this.itemService.saveItem(item, desc);
+			boolean bool = this.itemService.saveItem(item, desc,itemParams);
 			if (!bool) {
 				logger.info("新增商品失败,item = {}", item);
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
