@@ -16,6 +16,7 @@
 			<artifactId>taotao-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
 		<!-- 单元测试 -->
 		<dependency>
 			<groupId>junit</groupId>
