@@ -198,6 +198,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		
 		<pluginManagement>
 			<plugins>
 				<!-- 配置Tomcat插件 -->
