@@ -1,19 +1,16 @@
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="http://manage.taotao.com/js/jquery-easyui-1.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/jquery-1.6.4.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$.ajax({
-			//url : "/json.jsp",
-			url : "http://manage.taotao.com/json.jsp",	// 跨域 ，不能访问
+			url : "http://manage.taotao.com/json.jsp",	// 跨域 ，不能访问 使用jsonp方式访问
 			type : "get",
-			datatype : "json",
+			dataType : "jsonp",
 			success : function(data) {
-				var jsonDada = eval("(" + data+")");
-				alert(jsonDada.abc);
+				alert(data.abc);
 			}
 		});
 	});

@@ -3,8 +3,8 @@
 <%
 	String callback = request.getParameter("callback");
 	if (callback == null || callback == "") {
-		out.print("{'abc':123}");
+		out.print("{\"abc\":123}");
 	} else {
-		out.print(callback + "({'abc':123})");
+		out.print(callback + "({\"abc\":123})");
 	}
 %>
