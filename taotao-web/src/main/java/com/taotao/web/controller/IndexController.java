@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.taotao.web.service.ApiService;
 import com.taotao.web.service.IndexService;
 
 @Controller
@@ -25,6 +23,7 @@ public class IndexController {
 		ModelAndView mav = new ModelAndView("index");
 		try {
 			mav.addObject("indexAD1", indexService.queryIndexAD1());
+			mav.addObject("indexAD2", indexService.queryIndexAD2());
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
