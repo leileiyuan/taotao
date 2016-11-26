@@ -19,6 +19,9 @@ public class ItemCatService extends BaseService<ItemCat> {
 	@Autowired
 	private RedisService redisService;
 	
+	private static final String REDIS_KEY = "TAOTAO_MAMAGE_ITEM_CAT_API"; // key命名项目名_模块名_业务名
+	
+	private static final int REIDS_TIME = 60 * 60 * 24; //
 	/**
 	 * 全部查询，并且生成树状结构
 	 * 
@@ -27,12 +30,16 @@ public class ItemCatService extends BaseService<ItemCat> {
 	public ItemCatResult queryAllToTree() {
 		ItemCatResult result = new ItemCatResult();
 		
-		//先从缓存中命中，如果没有命中，继续执行
-		String key = "TAOTAO_MAMAGE_ITEM_CAT_API"; // key命名项目名_模块名_业务名
-		String cacheData = redisService.get(key);
-		if(StringUtils.isNotEmpty(cacheData)){
-			// 命中 则返回
-			return  JSON.parseObject(cacheData, ItemCatResult.class);
+		// 原则：加入的缓存，如果出错，不能影响我正常业务逻辑的处理。要使用最大的Exception捕获
+		try {
+			//先从缓存中命中，如果没有命中，继续执行
+			String cacheData = redisService.get(REDIS_KEY);
+			if(StringUtils.isNotEmpty(cacheData)){
+				// 命中 则返回
+				return  JSON.parseObject(cacheData, ItemCatResult.class);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		// 全部查出，并且在内存中生成树形结构
@@ -82,9 +89,14 @@ public class ItemCatService extends BaseService<ItemCat> {
 			}
 		}
 		
-		// 将数据库查询到的结果集 写入到缓存中。
-		String jsonString = JSON.toJSONString(result);
-		this.redisService.set(key, jsonString, 60 * 60 * 24); // 缓存一天
+		// 原则：加入的缓存，如果出错，不能影响我正常业务逻辑的处理。要使用最大的Exception捕获
+		try {
+			// 将数据库查询到的结果集 写入到缓存中。
+			String jsonString = JSON.toJSONString(result);
+			this.redisService.set(REDIS_KEY, jsonString, REIDS_TIME); // 缓存一天
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return result;
 	}
 }
