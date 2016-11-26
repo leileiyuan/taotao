@@ -13,6 +13,7 @@ import com.alibaba.fastjson.JSON;
 import com.taotao.common.ItemCatData;
 import com.taotao.common.ItemCatResult;
 import com.taotao.pojo.ItemCat;
+import com.taotao.service.RedisService;
 
 @Service
 public class ItemCatService extends BaseService<ItemCat> {
