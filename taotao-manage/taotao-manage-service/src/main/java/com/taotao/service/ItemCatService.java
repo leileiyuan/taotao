@@ -5,14 +5,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.taotao.common.ItemCatData;
 import com.taotao.common.ItemCatResult;
 import com.taotao.pojo.ItemCat;
 
 @Service
 public class ItemCatService extends BaseService<ItemCat> {
+	@Autowired
+	private RedisService redisService;
+	
 	/**
 	 * 全部查询，并且生成树状结构
 	 * 
@@ -20,6 +26,15 @@ public class ItemCatService extends BaseService<ItemCat> {
 	 */
 	public ItemCatResult queryAllToTree() {
 		ItemCatResult result = new ItemCatResult();
+		
+		//先从缓存中命中，如果没有命中，继续执行
+		String key = "TAOTAO_MAMAGE_ITEM_CAT_API"; // key命名项目名_模块名_业务名
+		String cacheData = redisService.get(key);
+		if(StringUtils.isNotEmpty(cacheData)){
+			// 命中 则返回
+			return  JSON.parseObject(cacheData, ItemCatResult.class);
+		}
+		
 		// 全部查出，并且在内存中生成树形结构
 		List<ItemCat> cats = super.queryAll();
 
@@ -66,6 +81,10 @@ public class ItemCatService extends BaseService<ItemCat> {
 				break;
 			}
 		}
+		
+		// 将数据库查询到的结果集 写入到缓存中。
+		String jsonString = JSON.toJSONString(result);
+		this.redisService.set(key, jsonString, 60 * 60 * 24); // 缓存一天
 		return result;
 	}
 }
