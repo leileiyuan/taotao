@@ -7,16 +7,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+
 @Table(name = "tb_user")
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Length(min = 6, max = 20, message = "用户名长度在6-20之间")
 	private String username;
+
+	@Length(min = 6, max = 20, message = "用户名长度在6-20之间")
 	private String password;
+
+	@Length(min = 11, max = 11, message = "手机号码长度为11位")
 	private String phone;
+
+	@Email(message = "邮箱格式不正确")
 	private String email;
+	
 	private Date created;
 	private Date updated;
 
